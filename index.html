@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel Kratos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #FFFFF;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .painel {
+      display: flex;
+      width: 500px;
+      height: 330px;
+      background: #212121;
+      border-radius: 14px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.6);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .painel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #212121;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    .painel * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sidebar {
+      width: 90px;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 10px;
+      border-right: 1px solid #333;
+      gap: 30px;
+    }
+
+    .sidebar .logo {
+      font-family: 'Impact', sans-serif;
+      font-size: 14px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .logo span {
+      color: orange;
+      font-style: italic;
+      display: block;
+    }
+
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: gray;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: orange;
+    }
+
+    .tab i {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0;
+      font-size: 15px;
+    }
+
+    .toggle {
+      width: 40px;
+      height: 20px;
+      background: #3b3b3b;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .toggle::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      background: orange;
+      border-radius: 50%;
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      transition: 0.3s ease;
+    }
+
+    .toggle.active::before {
+      left: 21px;
+    }
+
+    .fov-container {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .slider {
+      width: 100%;
+      appearance: none;
+      height: 6px;
+      background: #3a3a3a;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background: orange;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="painel">
+    <div class="close-btn" onclick="alert('Fechar painel')">×</div>
+
+    <div class="sidebar">
+      <div class="logo">
+        PAINEL<br><span>KN XITS</span>
+      </div>
+      <div class="tab active" onclick="showTab('aimbot', this)">
+        <i class="fas fa-crosshairs"></i>
+        Aimbot
+      </div>
+      <div class="tab" onclick="showTab('visual', this)">
+        <i class="fas fa-eye"></i>
+        Visual
+      </div>
+      <div class="tab" onclick="showTab('config', this)">
+        <i class="fas fa-cog"></i>
+        Config
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- AIMBOT -->
+      <div id="aimbot" class="content-section active">
+        <div class="item">
+          <span>Aimbot Rage</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+    
+        <div class="fov-container">
+          Ajustar Fov: <span id="fov-value">360</span>
+        </div>
+         <input type="range" min="0" max="360" value="360" class="slider"
+               oninput="document.getElementById('fov-value').textContent = this.value">
+        <div class="item">
+          <span>Aimbot Legit</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+        <div class="item">
+          <span>Aimbot Legit V2</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+       
+      </div>
+
+      <!-- VISUAL -->
+      <div id="visual" class="content-section">
+        <div class="item">
+          <span>Esp Linha</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+        <div class="item">
+          <span>Esp Box</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+        <div class="item">
+          <span>Esp Cursorx</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+        <div class="item">
+          <span>Esp Crosshair</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+      </div>
+
+      <!-- CONFIG -->
+      <div id="config" class="content-section">
+        <div class="item">
+          <span>Icone Invisivel</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+        <div class="item">
+          <span>Stream Mode</span>
+          <div class="toggle" onclick="toggle(this)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggle(el) {
+      el.classList.toggle('active');
+    }
+
+    function showTab(id, tabElement) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tabElement.classList.add('active');
+
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
